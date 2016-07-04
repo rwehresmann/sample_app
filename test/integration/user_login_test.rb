@@ -50,4 +50,14 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     log_in_as(@user, remember_me: '0')
     assert_nil cookies['remember_token']
   end
+
+  test "execute an action when not logged and execute friendly forwarding
+        immediatly after logged" do
+    get edit_user_path @user
+    assert_redirected_to login_path
+    forwarding_url = session[:forwarding_url]
+    log_in_as @user
+    assert_redirected_to forwarding_url
+  end
+
 end
