@@ -16,11 +16,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
       post users_path, params: { user: @invalid_user }
     end
     assert_template 'users/new'
-    assert_select 'form[action="/signup"]'
-  end
-
-  test "should show error messages" do
-    post users_path, params: { user: @invalid_user }
     assert_select 'div#error_explanation'
     assert_select 'div.alert'
     assert_select 'div.alert-danger'
